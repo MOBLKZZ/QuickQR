@@ -374,7 +374,7 @@ body:has(.modeTheme:checked) nav {
 }
 
 @media print {
-  nav, .containerMain, .switch, .brand-title    , footer {
+  nav, .containerMain, .switch, .brand-title, footer {
     display: none !important;
   }
   body {
