@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://cdn.jsdelivr.net/npm/qr-code-styling@1.5.0/lib/qr-code-styling.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/themes/nano.min.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/pickr.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <link rel="stylesheet" href="style.css">
+  <link rel="shortcut icon" href="./svg/qr.svg" type="image/x-icon" />
+  <title>QuickQR - Gerador Profissional</title>
+</head>
+
+<body class="d-flex flex-col justify-start items-center w-100dvw min-h-100 gap-16">
+  <nav class="d-flex justify-between items-center w-100 bs-main p-20">
+    <h1 class="cursor-p user-n brand-title">Quick<span>QR</span></h1>
+    <div class="d-flex justify-center items-center bg-container bd p-12 gap-16 br-50">
+      <span class="fs-13 text-muted">Tema escuro</span>
+      <input type="checkbox" class="switch modeTheme">
+    </div>
+  </nav>
+
+  <div class="containerMain d-flex flex-col justify-center items-center gap-16 w-500 p-20 bg-container br-20 bs-main">
+    <div class="w-100 bb-border d-flex flex-row justify-between items-center pb-12">
+      <h1 class="ml-10 fs-18 fw-600 text-main">Gerar QR</h1>
+      <span class="mr-10 fs-13 text-muted ws-nowrap">Prévia ao vivo e exportação pronta</span>
+    </div>
+
+    <div class="d-flex flex-row justify-evenly items-center w-100 gap-8 containerRadio">
+      <input type="radio" name="radio" id="radioContent" checked>
+      <input type="radio" name="radio" id="radioStyle">
+      <input type="radio" name="radio" id="radioAdvanced">
+      <input type="radio" name="radio" id="radioExport">
+      <label for="radioContent">Conteúdo</label>
+      <label for="radioStyle">Estilo</label>
+      <label for="radioAdvanced">Avançado</label>
+      <label for="radioExport">Exportar</label>
+    </div>
+
+    <div class="containerFormURL w-100">
+      <div class="dropdown mb-16 pos-r">
+        <button class="btn btn-secondary dropdown-toggle w-100 h-50 d-flex justify-between items-center px-20 br-10" type="button" id="dropdownGroupButton" data-bs-toggle="dropdown" aria-expanded="false">
+          Tipo: Link URL
+        </button>
+        <ul class="dropdown-menu w-100" aria-labelledby="dropdownGroupButton">
+          <li><button class="dropdown-item tab-btn active" type="button" data-group="url">Link URL</button></li>
+          <li><button class="dropdown-item tab-btn" type="button" data-group="whatsapp">WhatsApp Conversa</button></li>
+        </ul>
+      </div>
+
+      <div class="input-group active" id="group-url">
+        <div class="w-100 d-flex flex-row justify-between text-muted fs-14 mb-4">
+          <label for="inputURL">URL</label>
+          <span><span class="valueInputURL">0</span>/255</span>
+        </div>
+        <input id="inputURL" class="input inputURL w-100 h-50 px-20 br-10 fs-16 mb-12" maxlength="255" type="url" value="https://google.com"/>
+      </div>
+
+      <div class="input-group" id="group-whatsapp">
+        <div class="w-100 text-muted fs-14 mb-4">
+          <label for="inputPhone">Número do WhatsApp (com DDD)</label>
+        </div>
+        <input id="inputPhone" class="input inputPhone w-100 h-50 px-20 br-10 fs-16 mb-12" type="tel" placeholder="Ex: 11999999999"/>
+        
+        <div class="w-100 text-muted fs-14 mb-4">
+          <label for="inputMessage">Mensagem Automática (Opcional)</label>
+        </div>
+        <textarea id="inputMessage" class="input inputMessage w-100 p-20 br-10 fs-16 mb-12" rows="3" placeholder="Olá, gostaria de mais informações!"></textarea>
+      </div>
+
+      <label class="bd p-12 br-10 d-flex flex-col gap-4 cursor-p user-n focus mb-8">
+        <h1 class="fs-14 fw-600 text-muted">Rastrear cliques</h1>
+        <div class="d-flex flex-row pos-r">
+          <span class="fs-12 text-muted spanText">Marque para lembrar que isso só funciona com QR dinâmico (redirecionamento).</span>
+          <input type="checkbox" id="clicksQR" class="cursor-p bd checkbox" disabled/>
+        </div>
+      </label>
+
+      <label class="bd p-12 br-10 d-flex flex-col gap-4 cursor-p user-n focus">
+        <h1 class="fs-14 fw-600 text-muted">QR dinâmico</h1>
+        <div class="d-flex flex-row pos-r">
+          <span class="fs-12 text-muted spanText">Troque o destino depois sem reimprimir. Ideal para campanhas e menus.</span>
+          <input type="checkbox" id="qrDynamic" class="cursor-p bd checkbox" disabled/>
+        </div>
+      </label>
+    </div>
+
+    <div class="containerStyle w-100">
+      <span class="text-muted fs-14 fw-600 mb-4 block">Cores</span>
+      <div class="d-flex justify-center items-center flex-row gap-16 mb-16">
+        <div class="bd p-10 br-10 d-flex justify-center items-center color-wrapper cursor-p pos-r">
+          <div id="color-picker-1"></div>
+          <span id="label-color-1" class="labelColor fs-14 ml-5 text-main">#000000</span>
+        </div>
+      
+        <div class="bd p-10 br-10 d-flex justify-center items-center color-wrapper cursor-p pos-r">
+          <div id="color-picker-2"></div>
+          <span id="label-color-2" class="labelColor fs-14 ml-5 text-main">#000000</span>
+        </div>
+      
+        <div class="bd p-10 br-10 d-flex justify-center items-center color-wrapper cursor-p pos-r">
+          <div id="color-picker-3"></div>
+          <span id="label-color-3" class="labelColor fs-14 text-main">#FFFFFF</span>
+        </div>
+      </div>
+
+      <div>
+        <span class="text-muted fs-14 fw-600 mb-8 block">Forma do Corpo</span>
+        <input type="radio" name="dots-forms" data-border="square" id="dots-square" checked/>
+        <input type="radio" name="dots-forms" data-border="rounded" id="dots-rounded"/>
+        <input type="radio" name="dots-forms" data-border="extra-rounded" id="dots-extra-rounded"/>
+        <input type="radio" name="dots-forms" data-border="dots" id="dots-dots"/>
+        <input type="radio" name="dots-forms" data-border="classy" id="dots-classy"/>
+        <input type="radio" name="dots-forms" data-border="classy-rounded" id="dots-classy-rounded"/>
+
+        <div class="w-100 d-flex flex-row justify-stretch items-center format-group mb-16">
+          <label class="selectRadio" for="dots-square"><div class="form square"></div></label>
+          <label class="selectRadio" for="dots-rounded"><div class="form rounded"></div></label>
+          <label class="selectRadio" for="dots-extra-rounded"><div class="form extra-rounded"></div></label>
+          <label class="selectRadio" for="dots-dots"><div class="form dots"></div></label>
+          <label class="selectRadio" for="dots-classy"><div class="form classy"></div></label>
+          <label class="selectRadio" for="dots-classy-rounded"><div class="form classy-rounded"></div></label>
+        </div>
+
+        <span class="text-muted fs-14 fw-600 mb-8 block">Forma dos Cantos</span>
+        <input type="radio" name="corners-forms" data-border="square" id="corner-square" checked/>
+        <input type="radio" name="corners-forms" data-border="extra-rounded" id="corner-extra-rounded"/>
+        <input type="radio" name="corners-forms" data-border="dots" id="corner-dots"/>
+
+        <div class="w-100 d-flex flex-row justify-stretch items-center format-group">
+          <label class="selectRadio" for="corner-square"><div class="form square"></div></label>
+          <label class="selectRadio" for="corner-extra-rounded"><div class="form extra-rounded"></div></label>
+          <label class="selectRadio" for="corner-dots"><div class="form dots"></div></label>
+        </div>
+      </div>
+    </div>
+    
+    <div class="containerAdvanced w-100 d-flex flex-col gap-12">
+      <div class="w-100 mb-4"> 
+        <div class="w-100 d-flex flex-row justify-between text-muted fs-14 mb-4">
+          <label for="rangeMargin">Margem do Logotipo</label>
+          <span><span class="valueRange">10</span>%</span>
+        </div>
+        <input type="range" id="rangeMargin" class="range" step="5" min="0" max="40" value="10">
+      </div>
+
+      <div class="w-100 mb-12"> 
+        <div class="w-100 d-flex flex-row justify-between text-muted fs-14 mb-4">
+          <label for="rangeSize">Tamanho do Logotipo</label>
+          <span><span class="valueRange">40</span>%</span>
+        </div>
+        <input type="range" id="rangeSize" class="range" step="5" min="0" max="40" value="40">
+      </div>
+
+      <span class="text-muted fs-14 fw-600 block">Logotipo do QR Code</span>
+      <input type="file" id="uploadFile" accept="image/*"/>
+      <label for="uploadFile" class="files d-flex flex-col justify-center items-center cursor-p user-n br-10 gap-4 p-20">
+        <img src="./svg/upload.svg" class="svg" style="margin-bottom: 4px;"/>
+        <span class="text-main fs-14 fw-600">Clique para fazer upload</span>
+        <span class="text-muted fs-12">Suporta arquivos PNG, JPG ou SVG (Máx. 2MB)</span>
+      </label>
+      <button type="button" class="btn-remove cursor-p user-n fs-14 fw-600 w-100 h-50 br-10">Remover Logotipo</button>
+    </div>
+
+    <div class="containerExport w-100 d-flex flex-col">
+      <button class="btn btn-primary cursor-p user-n btn-download-png mb-12">Baixar PNG</button>
+      <button class="btn btn-secondary cursor-p user-n btn-download-svg mb-12">Baixar SVG</button>
+      <button class="btn btn-tertiary cursor-p user-n btn-download-pdf">PDF para Impressão</button>
+    </div>
+  </div>
+
+  <div class="d-flex justify-center items-center bg-container bd p-20 br-20 w-500 qr-preview-box">
+    <div class="d-flex justify-center items-center bg-container bd br-20 p-20 w-100">
+      <div class="containerQrCode"></div>
+    </div>
+  </div>
+  
+  <footer>
+    <p>&copy; 2026 &bull; Desenvolvido por <a href="https://github.com/MOBLKZZ" target="_blank" rel="noopener noreferrer">Um Dev Qualquer</a></p>
+  </footer>
+  
+  <script type="module" src="script.js"></script>
+</body>
+
+</html>
+ 
