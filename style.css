@@ -43,6 +43,7 @@ body:has(.modeTheme:checked) {
 }
 
 body {
+  overscroll-behavior-y: contain;
   color: var(--text-main);
   background: var(--bg-body);
   overflow-x: hidden;
