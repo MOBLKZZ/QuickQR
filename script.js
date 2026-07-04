@@ -240,9 +240,16 @@ if (removeFileBtn) {
   });
 }
  
- document.addEventListener('touchmove', function(e) {
-    if (window.scrollY === 0 && e.touches[0].clientY > 0) {
+let ts;
+document.addEventListener('touchstart', function (e) {
+    ts = e.touches[0].clientY;
+}, { passive: true });
 
+document.addEventListener('touchmove', function (e) {
+    let te = e.touches[0].clientY;
+    // Se o usuário está no topo da página E tentando puxar para baixo (te > ts)
+    if (window.scrollY === 0 && ts < te) {
+        // Bloqueia APENAS o gesto de puxar para baixo que dispararia o refresh
         e.preventDefault();
     }
 }, { passive: false });
