@@ -216,7 +216,10 @@ body:has(#radioExport:checked) .containerExport{
   background: var(--primary-light);
 }
 
-.containerMain { margin-top: 95px; }
+.containerMain { 
+  margin-top: calc(75px + env(safe-area-inset-top)); 
+  padding: 15px;
+}
 
 .switch {
   position: relative;
@@ -245,7 +248,10 @@ body:has(#radioExport:checked) .containerExport{
 
 nav {
   width: 100%;
-  height: 70px;
+  height: calc(70px + env(safe-area-inset-top));
+  padding-top: env(safe-area-inset-top);
+  padding-left: 20px;
+  padding-right: 20px;
   background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
@@ -254,6 +260,9 @@ nav {
   left: 0;
   z-index: 999;
   border: none !important;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
 }
 
 body:has(.modeTheme:checked) nav {
@@ -410,11 +419,6 @@ body:has(.modeTheme:checked) nav {
 @media (max-width: 600px) {
   body {
     padding: 0 !important;
-  }
-  
-  .containerMain { 
-    margin-top: 85px; 
-    padding: 15px;
   }
 
   .qr-preview-box {
