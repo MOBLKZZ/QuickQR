@@ -17,20 +17,25 @@ jobs:
       with:
         node-version: 18
 
-    - name: Instalar Capacitor globalmente ou local
+    - name: Organizar arquivos em uma pasta web (www)
+      run: |
+        mkdir www
+        # Move todos os arquivos do site para dentro da pasta www, exceto pastas de sistema como .git e .github
+        find . -maxdepth 1 ! -name '.' ! -name '.git' ! -name '.github' ! -name 'www' -exec mv {} www/ \;
+
+    - name: Instalar Capacitor
       run: |
         npm init -y
         npm install @capacitor/core @capacitor/cli @capacitor/android
 
-    - name: Inicializar Capacitor para projeto web estático
+    - name: Inicializar Capacitor apontando para a pasta www
       run: |
-        npx cap init "MeuApp" "com.seuapp.app" --web-dir "."
+        npx cap init "QuickQR" "com.quickqr.app" --web-dir "www"
 
-    - name: Adicionar plataforma Android
-      run: npx cap add android
-
-    - name: Sincronizar arquivos web para o Android
-      run: npx cap sync android
+    - name: Adicionar plataforma Android e Sincronizar
+      run: |
+        npx cap add android
+        npx cap sync android
 
     - name: Configurar Java JDK
       uses: actions/setup-java@v4
