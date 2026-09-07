@@ -44,7 +44,7 @@ body:has(.modeTheme:checked) {
 
 html, body {
   width: 100%;
-  min-height: 100vh;
+  height: 100dvh;
   margin: 0;
   padding: 0;
   background: var(--bg-body);
