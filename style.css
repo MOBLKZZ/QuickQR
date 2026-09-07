@@ -42,11 +42,15 @@ body:has(.modeTheme:checked) {
   -webkit-tap-highlight-color: transparent;
 }
 
-body {
-  overscroll-behavior-y: contain;
-  color: var(--text-main);
+html, body {
+  width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
   background: var(--bg-body);
+  color: var(--text-main);
   overflow-x: hidden;
+  overscroll-behavior-y: contain;
 }
 
 .cursor-p { cursor: pointer; }
@@ -405,7 +409,7 @@ body:has(.modeTheme:checked) nav {
 
 @media (max-width: 600px) {
   body {
-    padding: 10px;
+    padding: 0 !important;
   }
   
   .containerMain { 
@@ -657,7 +661,6 @@ ul {
   list-style: none;
 }
 
-
 footer {
   width: 100%;
   padding: 30px 0;
@@ -686,7 +689,6 @@ footer a::before {
   transform: scaleX(0);
   transition: transform .3s ease;
   bottom: -1px;
-  
 }
 footer a:hover::before {
   transform: scaleX(1);
@@ -711,4 +713,4 @@ body.dark-mode footer a::before {
 
 ::placeholder {
   user-select: none;
-} 
+}
