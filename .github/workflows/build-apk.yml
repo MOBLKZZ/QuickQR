@@ -42,8 +42,9 @@ jobs:
         distribution: 'temurin'
         java-version: '17'
 
-    - name: Limpar e Gerar o APK de Debug
+    - name: Limpar cache do Gradle e Gerar APK
       run: |
+        rm -rf ~/.gradle/caches/
         cd android
         chmod +x gradlew
         ./gradlew clean
