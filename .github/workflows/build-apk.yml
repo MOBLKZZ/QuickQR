@@ -1,0 +1,51 @@
+name: Build Vanilla Android APK
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout do código
+      uses: actions/checkout@v4
+
+    - name: Configurar Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: 18
+
+    - name: Instalar Capacitor globalmente ou local
+      run: |
+        npm init -y
+        npm install @capacitor/core @capacitor/cli @capacitor/android
+
+    - name: Inicializar Capacitor para projeto web estático
+      run: |
+        npx cap init "MeuApp" "com.seuapp.app" --web-dir "."
+
+    - name: Adicionar plataforma Android
+      run: npx cap add android
+
+    - name: Sincronizar arquivos web para o Android
+      run: npx cap sync android
+
+    - name: Configurar Java JDK
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '17'
+
+    - name: Gerar o APK de Debug
+      run: |
+        cd android
+        chmod +x gradlew
+        ./gradlew assembleDebug
+
+    - name: Salvar o APK gerado
+      uses: actions/upload-artifact@v4
+      with:
+        name: app-debug
+        path: android/app/build/outputs/apk/debug/app-debug.apk
