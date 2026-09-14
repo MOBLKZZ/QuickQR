@@ -16,4 +16,3 @@ Gerador de QR Code rápido, moderno e funcional desenvolvido para facilitar o co
 1. O usuário digita uma URL ou texto no campo de entrada.
 2. O JavaScript processa os dados e renderiza o QR Code em tempo real.
 3. O usuário pode salvar ou compartilhar a imagem gerada.
-4. 
